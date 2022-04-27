@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Download{% endblock title %}
+{% block body %}
+  
+
+    <div id = "facebook"class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="text-center my-3" style="color: black;">Download</h1>
+            
+                <a class="btn btn-outline-light" style="margin-left: 90%; margin-top: -107px;" href="/" role="button"><img src="https://teq.fra1.cdn.digitaloceanspaces.com/er_map/assets/close-icon.1b11abc1.png" class="rounded-circle" style="height: 30px; width: 30px;"></a>
+                
+            </div>
+            <div class="card-body">
+                <div class="row justify-content-center container">
+                    <h1  style="color: black;">Predictions Files:</h1>
+                    <div class="container px-4">
+                        <div class="row gx-5">
+                           {% include 'filter.html' %}
+                                
+                        </div>
+                    </div>
+                   
+                    <div class="table-responsive" style="margin-top: 20px;">
+                        <table class="table table-dark table-striped">
+                            <thead>
+                            <tr>
+                                <th>Serial No.</th>
+                                <th>Date</th>
+                                <th>Model</th>
+                                <th>Filenames</th>
+                                <th>Download</th>
+                                
+                            </thead>
+                            <tbody>
+                            <!-- jinja2 Technique -->
+                            {% if f %}  
+                            {% for i in f %}
+
+                            <tr>
+                                <td>{{i.SL}}</td>
+                                <td>{{i.date}}</td>
+                                <td>{{i.model}}</td>
+                                <td>{{i.filenames}}</td>
+                                <td><button type="button"  class="btn btn-outline-success my-3"><a href="{{i.link}}">Download</a></button></td>
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+
+                
+            </div>
+        
+        
+        </div>
+    </div>
+
+
+
+
+    
+
+
+{% endblock body %}
