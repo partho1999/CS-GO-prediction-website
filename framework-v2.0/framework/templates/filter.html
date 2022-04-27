@@ -20,11 +20,9 @@
         <form action="download" method="POST">
           {% csrf_token %}
           <div class="row form-group">
-              
-            <div class="col">
-              
-              <div class="col-sm-6"> 
-                <select class="form-select form-select-sm" name="dropdown" aria-label=".form-select-lg example">
+            <div class="row align-items-center">  
+              <div class="col">
+                <select class="form-select form-select" name="dropdown" aria-label=".form-select-lg example">
                   <option selected>Select Model</option>
                   <option value="1">Alpha</option>
                   <option value="2">BPC</option>
@@ -38,26 +36,21 @@
                   <option value="10">Tier</option>
                 </select>
               </div>
-              
-            </div>
-
-            <div class="col">
-              
-              <div class="col-sm-6">
-                  <div class="input-group date" id="datepicker">
-                      <input type="text" name="datePicker" class="form-control">
-                      <span class="input-group-append">
-                          <span class="input-group-text bg-white d-block">
-                              <i class="fa fa-calendar"></i>
-                          </span>
-                      </span>
-                  </div>
+              <div class="col-3">
+                
+                <div class="input-group date" id="datepicker">
+                    <input type="text" name="datePicker" class="form-control">
+                    <span class="input-group-append">
+                        <span class="input-group-text bg-white d-block">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </span>
+                </div>
               </div>
-              
-            </div>
-            <div class="col">
-              <div class="col-sm-3">
-                <button type="submit" class="btn btn-primary">filter</button>
+              <div class="col">
+                <div class="col-sm-3">
+                  <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
               </div>
             </div>
           </div>
@@ -67,7 +60,11 @@
 
     <script type="text/javascript">
         $(function() {
-            $('#datepicker').datepicker();
+            $('#datepicker').datepicker({
+              value: new Date(),
+              // sets the format.
+              format: 'yyyy-mm-dd'
+            });
         });
     </script>
 
