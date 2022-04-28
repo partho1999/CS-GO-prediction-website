@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock title %}
+
+{% block body %}
+  
+  <div id = "facebook"class="container">
+    <div class="card">
+        <div class="card-header">
+          <h2 class="text-center my-3" style="color:black;">Login</h2>
+          <a class="btn btn-outline-light" style="margin-left: 90%; margin-top: -107px;" href="/" role="button"><img src="https://teq.fra1.cdn.digitaloceanspaces.com/er_map/assets/close-icon.1b11abc1.png" class="rounded-circle" style="height: 30px; width: 30px;"></a>
+        </div>
+        <div class="card-body ">
+          <div class="container">
+            <form action='login' method='POST'>
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="signinInputusername" class="form-label">Username</label>
+                <input type="text" class="form-control" placeholder="First name" aria-label="First name"  name="username">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+              </div>
+              <button type="submit" class="btn btn-outline-dark">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>  
+{% endblock body %}
