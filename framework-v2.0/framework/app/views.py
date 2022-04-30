@@ -27,6 +27,7 @@ from datetime import date
 import pandas as pd
 import _thread
 import requests
+import urllib.request
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
@@ -157,41 +158,39 @@ def user_profile(request, user_id):
 
 		return render(request, 'profile.html', {'my_profile': user_profile})
 
-def functions(request):
-    return render(request, 'function.html')
 
 @login_required
 def update_rank(request):
-    if request.method == "POST" or request.method != "POST":
-        url = "http://csprediction-env.eba-pvvpzi4d.eu-north-1.elasticbeanstalk.com/rank"
-        #redirect(url)
-        x = requests.get(url)
-        print(x.status_code)   
-    return render(request, 'update_rank.html')
+    try:
+        print("Yay! I still got executed, even though my function has already returned!...  twitter")
+        webUrl = urllib.request.urlopen("http://csprediction-env.eba-pvvpzi4d.eu-north-1.elasticbeanstalk.com/rank") 
+        return render(request, 'update_rank.html')
+    finally:
+        print("im in finallay")
+        
+        return render(request, 'update_rank.html')
+    
 
-
+@login_required
 def update_dataset(request):
     try:
         print("Yay! I still got executed, even though my function has already returned!...  twitter")
+        webUrl = urllib.request.urlopen("http://csprediction-env.eba-pvvpzi4d.eu-north-1.elasticbeanstalk.com/update") 
+        return render(request, 'update_dataset.html') 
     finally:
         print("im in finallay")
-        url = "http://csprediction-env.eba-pvvpzi4d.eu-north-1.elasticbeanstalk.com/update"
-        
-        #return HttpResponseRedirect(url)
-        # x = requests.get(url)
-        # print(x.status_code)
-        redirect(url)
-        
-    #     x = requests.get(url, verify=False)
-    #     print(x.status_code)   
-    return render(request, 'update_dataset.html')
+         
+        #webUrl = urllib.request.urlopen("http://csprediction-env.eba-pvvpzi4d.eu-north-1.elasticbeanstalk.com/update")  
+        return render(request, 'update_dataset.html') 
+   
 
+@login_required
 def download(request):
     if request.method == "POST":
         model = request.POST.get('dropdown')
         print(model)
-        # datePicker =request.POST.get('datePicker')
-        # print(datePicker)
+        datePicker =request.POST.get('datePicker')
+        print(datePicker)
 
         link = "http://csprediction-env.eba-pvvpzi4d.eu-north-1.elasticbeanstalk.com/getallfilename"
         f = urlopen(link)
@@ -206,7 +205,7 @@ def download(request):
         print("current_date=", current_date)
 
         # model =""
-        datePicker ="2022-04-24"
+        #datePicker ="2022-04-24"
 
         if model=="1":
             if datePicker == "":
@@ -1144,6 +1143,7 @@ def download(request):
                 
     return render(request, 'download.html',context)
 
+@login_required
 def predictions(request):
     if request.method == "POST":
         title = request.POST.get("q")

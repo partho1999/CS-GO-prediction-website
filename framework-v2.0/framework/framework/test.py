@@ -1,49 +1,61 @@
+# from datetime import datetime, timedelta
+# import time
+# now = datetime.now()
+# now_plus_10 = now + timedelta(seconds= 60)
+# i=0
+# while datetime.now()<now_plus_10:
+#     time.sleep(10)
+#     i+=1
+#     print(i)
+
+import urllib
 import json
-import urllib.request
-import requests
-import random
-from bs4 import BeautifulSoup
-def GET_UA():
-    uastrings = ["Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36",\
-                "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.72 Safari/537.36",\
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/600.1.25 (KHTML, like Gecko) Version/8.0 Safari/600.1.25",\
-                "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0",\
-                "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36",\
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36",\
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/600.1.17 (KHTML, like Gecko) Version/7.1 Safari/537.85.10",\
-                "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko",\
-                "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0",\
-                "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.104 Safari/537.36"\
-                ]
-    return random.choice(uastrings)
-#Fakes header otherwise 403 & Formats Request w/ URL & Fake Headers Otherwise Denied & Decodes Response as Usually contains unicode characters  & Loads Beautiful Soup & Returns
-webworker = lambda teamLink: BeautifulSoup(urllib.request.urlopen(urllib.request.Request(teamLink, headers={'User-Agent': GET_UA(),'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3','Accept-Encoding': 'none','Accept-Language': 'en-US,en;q=0.8','Connection': 'keep-alive'})).read().decode("utf-8"), 'html.parser')
+from urllib.request import urlopen
+from datetime import date
+import pandas as pd
 
-html=webworker("https://www.csprediction-env.eba-pvvpzi4d.eu-north-1.elasticbeanstalk.com/update")
+
+link = "http://csprediction-env.eba-pvvpzi4d.eu-north-1.elasticbeanstalk.com/getallfilename"
+f = urlopen(link)
+myfile = f.read()
+files=json.loads(myfile)['Name']
+
+today = date.today()
+
+# dd/mm/YY
+current_date= today.strftime("%Y-%m-%d")
+print("current_date=", current_date)
 
 
 
+filtered_lst=[]
+for element in files:
+    if current_date in element:
+        filtered_lst.append(element)
+
+print(filtered_lst)
+filenames=[]
+for file in filtered_lst:
+        filename = file.split("/")[2]
+        print(filename) 
+        filenames.append(filename)
 
 
 
+print(filenames)
+sl=list(range(1,len(filenames)+1)) 
+print(sl)   
 
 
 
-
-
-
-
-
-
-# import urllib.request
-
-# get_url= urllib.request.urlopen('https://csprediction-env.eba-pvvpzi4d.eu-north-1.elasticbeanstalk.com/update')
-
-# print("Response Status: "+ str(get_url.getcode()) )
-
-# import requests
-
-# url = 'https://csprediction-env.eba-pvvpzi4d.eu-north-1.elasticbeanstalk.com/update'
-# #redirect(url)
-# x = requests.get(url)
-# print(x.status_code)
+df = pd.DataFrame(
+{'SL' : sl,
+    'filenames' : filenames
+print(df)  
+json_records = df.reset_index().to_json(orient ='records')
+data = []
+data= json.loads(json_records)
+context = {'f': data, 't':data_1, 'g':data_2, 'y':data_3}
+# print(files)
+# if 'Resources/Results/2022-01-12PredictionReport.csv' in files:
+#     print('True')

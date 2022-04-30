@@ -24,7 +24,6 @@ urlpatterns = [
     path('login',views.user_login,name='login'),
     path('logout',views.user_logout,name='logout'),
     path("profile/<int:user_id>", views.user_profile, name='profile'), 
-    path('function',views.functions,name='funtion'),
     path('update_rank', views.update_rank, name='update_rank'),
     path('download', views.download, name='download'),
     path('predictions', views.predictions, name='predictions'),

@@ -12,25 +12,24 @@
             <div class="card-body">
                 
               <h2 align="Center" style="color:black;">
-                It Might Take around 20 minutes..!
+                It Might Take Few minutes..!
               </h2>
               <div class="container">
-        
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">10%</div>
-                </div>
+      
+                  <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
               </div>
               <script>
-                var progressBar =  $('.progress-bar progress-bar-striped');
-                var progressNumber = 0; 
-                setInterval(function(){
-                    progressNumber++;
-                    progressBar.css('width', progressNumber + '%');
-                    progressBar.att('aria-valuenow', progressNumber);
-                }, 500);
-    
+                  var progressBar =  $('.progress-bar');
+                  var progressNumber = 0; 
+                  setInterval(function(){
+                      progressNumber++;
+                      progressBar.css('width', progressNumber + '%');
+                      progressBar.att('aria-valuenow', progressNumber);
+                  }, 240);
+      
               </script>
-              
 
 
           
